@@ -1,0 +1,26 @@
+package dotenv
+
+import (
+	"io/fs"
+	"os"
+	"strings"
+)
+
+func LoadEnv()  {
+	file, err := fs.ReadFile(os.DirFS("."), ".env"); if err != nil {
+		return
+	}
+
+	for _, line := range strings.Split(string(file), "\n") {
+		parts := strings.Split(line, "=")
+
+		if len(parts) != 2 {
+			continue
+		}
+
+		key := strings.TrimSpace(parts[0])
+		value := strings.TrimSpace(parts[1])
+
+		os.Setenv(key, value)
+	}
+}
