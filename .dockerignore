@@ -1,4 +1,4 @@
 .env
-database.sqlite3
+db.sqlite3
 visit-counter
 .DS_Store

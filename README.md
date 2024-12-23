@@ -5,13 +5,15 @@
 </div>
 
 # Usage
+
 Deploy with a single command:
 
 ```bash
-docker run -p 8080:8080 -v ./database.sqlite3:/app/database.sqlite3 -e TOKEN=foo ghcr.io/arch-fan/visit-counter:latest
+docker run -p 8080:8080 -v ./db.sqlite3:/app/db.sqlite3 -e TOKEN=foo ghcr.io/arch-fan/visit-counter:latest
 ```
 
 Or with docker compose:
+
 ```yml
 services:
   counter:
@@ -19,21 +21,22 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./database.sqlite3:/app/database.sqlite3
+      - ./db.sqlite3:/app/db.sqlite3
     environment:
       TOKEN: foo
 ```
 
 # Environment Variables
 
-| Name | Obligatory | Description | DEFAULT
-|-|-|-|-|
-| `TOKEN` | Yes | A secret token for registering new URLs on the counter. | NO DEFAULT |
-| `ADDRESS` | No | The listening address. | `0.0.0.0` |
-| `SQLITE_FILE_PATH` | No | The path of the SQLite database inside the container | `database.sqlite3` |
-| `PORT` | No | The port where the app is going to listen | `8080` |
+| Name               | Obligatory | Description                                             | DEFAULT      |
+| ------------------ | ---------- | ------------------------------------------------------- | ------------ |
+| `TOKEN`            | Yes        | A secret token for registering new URLs on the counter. | NO DEFAULT   |
+| `ADDRESS`          | No         | The listening address.                                  | `0.0.0.0`    |
+| `SQLITE_FILE_PATH` | No         | The path of the SQLite database inside the container    | `db.sqlite3` |
+| `PORT`             | No         | The port where the app is going to listen               | `8080`       |
 
 # Deploy from source
+
 First, clone the repo
 
 ```bash

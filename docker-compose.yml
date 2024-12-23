@@ -4,5 +4,5 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./database.sqlite3:/app/database.sqlite3
+      - ./db.sqlite3:/app/db.sqlite3
     env_file: .env

@@ -35,3 +35,9 @@ func GetMissingVars(vars ...string) []string {
 	}
 	return leftVars
 }
+
+func LoadDefaultIfNotEnv(key string, value string) {
+	if _, ok := os.LookupEnv(key); !ok {
+		os.Setenv(key, value)
+	}
+}
