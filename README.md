@@ -4,8 +4,6 @@
   <p>A super-fast visit counter implemented in Go, powered with GORM and SQLite</p>
 </div>
 
-![counter](https://vcounter.archfan.com/counter.svg?url=https://github.com/arch-fan/visit-counter)
-
 # Usage
 
 Deploy with a single command:
