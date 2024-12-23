@@ -21,15 +21,18 @@ func GetCount(db *gorm.DB) http.HandlerFunc {
 		var page models.Page
 		result := db.Where(&models.Page{Url: url}).First(&page)
 		if result.Error != nil {
-			http.Error(w, result.Error.Error(), http.StatusInternalServerError)
+			if result.Error == gorm.ErrRecordNotFound {
+				http.Error(w, "Page not found", http.StatusNotFound)
+			} else {
+				http.Error(w, result.Error.Error(), http.StatusInternalServerError)
+			}
 			return
 		}
 
 		w.Header().Set("Content-Type", "image/svg+xml")
-		w.Write(page.CreateSVG())
+		w.Write([]byte(page.CreateSVG()))
 		go func() {
-			page.Visits++
-			db.Save(&page)
+			db.Model(&page).Update("visits", page.Visits+1)
 		}()
 	}
 }

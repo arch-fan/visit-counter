@@ -6,8 +6,9 @@ import (
 	"strings"
 )
 
-func LoadEnv()  {
-	file, err := fs.ReadFile(os.DirFS("."), ".env"); if err != nil {
+func LoadEnv() {
+	file, err := fs.ReadFile(os.DirFS("."), ".env")
+	if err != nil {
 		return
 	}
 
@@ -23,4 +24,14 @@ func LoadEnv()  {
 
 		os.Setenv(key, value)
 	}
+}
+
+func GetMissingVars(vars ...string) []string {
+	var leftVars []string
+	for _, v := range vars {
+		if os.Getenv(v) == "" {
+			return append(leftVars, v)
+		}
+	}
+	return leftVars
 }

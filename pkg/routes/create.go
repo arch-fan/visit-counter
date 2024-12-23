@@ -15,7 +15,7 @@ func Create(db *gorm.DB) http.HandlerFunc {
 		query := r.URL.Query()
 
 		token := query.Get("token")
-		if token != os.Getenv("TOKEN") {
+		if token == "" || token != os.Getenv("TOKEN") {
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 			return
 		}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"embed"
 	"fmt"
 	"net/http"
 	"os"
@@ -9,20 +10,30 @@ import (
 	"visit-counter/pkg/routes"
 )
 
+//go:embed assets/*.gif
+var imagesFS embed.FS
+
 func main() {
-    dotenv.LoadEnv()
+	dotenv.LoadEnv()
 
-    db, err := db.GetDB(); if err != nil {
-        fmt.Printf("Error connecting to database: %v\n", err)
-        os.Exit(1)
-    }
+	vars := []string{"TOKEN", "SQLITE_FILE_PATH"}
+	if missingVars := dotenv.GetMissingVars(vars...); len(missingVars) > 0 {
+		fmt.Printf("Missing environment variables: %v\n", missingVars)
+		os.Exit(1)
+	}
 
-    http.HandleFunc("/create", routes.Create(db))
-    http.HandleFunc("/count.svg", routes.GetCount(db))
+	db, err := db.GetDB()
+	if err != nil {
+		fmt.Printf("Error connecting to database: %v\n", err)
+		os.Exit(1)
+	}
 
-    address := dotenv.GetEnv("ADDRESS", "0.0.0.0")
-    port := dotenv.GetEnv("PORT", "8080")
+	http.HandleFunc("/create", routes.Create(db))
+	http.HandleFunc("/counter.svg", routes.GetCount(db))
 
-    http.ListenAndServe(fmt.Sprintf("%s:%s", address, port), nil)
-    fmt.Printf("Server is running on http://%s:%s\n", address, port)
+	address := dotenv.GetEnv("SERVER", "0.0.0.0")
+	port := "8080"
+
+	fmt.Printf("Server is running on http://%s:%s\n", address, port)
+	http.ListenAndServe(fmt.Sprintf("%s:%s", address, port), nil)
 }
