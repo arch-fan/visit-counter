@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  packages: write
+
 env:
   IMAGE_NAME: ghcr.io/arch-fan/visit-counter
   PLATFORMS: linux/amd64,linux/arm64
