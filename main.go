@@ -1,7 +1,6 @@
 package main
 
 import (
-	"embed"
 	"fmt"
 	"net/http"
 	"os"
@@ -9,9 +8,6 @@ import (
 	"visit-counter/pkg/dotenv"
 	"visit-counter/pkg/routes"
 )
-
-//go:embed assets/*.gif
-var imagesFS embed.FS
 
 func main() {
 	dotenv.LoadEnv()
