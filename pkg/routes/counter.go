@@ -30,7 +30,7 @@ func GetCount(db *gorm.DB) http.HandlerFunc {
 		}
 
 		w.Header().Set("Content-Type", "image/svg+xml")
-		w.Header().Set("Cache-Control", "no-cache")
+		w.Header().Set("Cache-Control", "private, max-age=0, no-cache")
 		w.Write([]byte(page.CreateSVG()))
 		go func() {
 			db.Model(&page).Update("visits", page.Visits+1)
