@@ -1,6 +1,6 @@
 <div align="center">
   <h1>GO-Visit Counter</h1>
-  <img src="https://vcounter.archfan.com/counter.svg?url=https://github.com/arch-fan/visit-counter" >
+  <img src="">
   <p>A super-fast visit counter implemented in Go, powered with GORM and SQLite</p>
 </div>
 
